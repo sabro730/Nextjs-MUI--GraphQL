@@ -36,3 +36,27 @@ twitter/webapp/.env.test.local
 .vercel
 
 .idea
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+autoFill/node_modules
+/.pnp
+.pnp.js
+
+# testing
+autoFill/coverage
+
+# production
+autoFill/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
