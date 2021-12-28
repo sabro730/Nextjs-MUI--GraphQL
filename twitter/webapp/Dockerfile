@@ -11,3 +11,5 @@ COPY . /webapp
 EXPOSE 3000
 
 WORKDIR /webapp
+
+CMD ["yarn", "run", "dev"]
