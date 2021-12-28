@@ -1,4 +1,9 @@
 import graphene
+from django.db.models import Q
+
+from django.contrib.auth.models import User
+
+from profiles.models import Profile
 from .models import Tweet
 from graphene_django import DjangoObjectType, DjangoListField
 from graphql_jwt.decorators import login_required
@@ -17,15 +22,14 @@ class UserType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    tweets = graphene.List(TweetType, id=graphene.Int())
+    tweets = graphene.List(TweetType)
     user = graphene.Field(UserType)
 
     @login_required
-    def resolve_tweets(self, info, id=None):
-        user = info.context.user
-        if id:
-            return Tweet.objects.filter(id=id)
-        return Tweet.objects.all().order_by("-created_at")
+    def resolve_tweets(self, info):
+        profiles = Profile.objects.filter(id__in=info.context.user.profile.following.all())
+        followingUsers = User.objects.filter(profile__in=profiles)
+        return Tweet.objects.filter(Q(user_id__in=followingUsers) | Q(user=info.context.user)).order_by("-created_at")
 
     @login_required
     def resolve_user(self, info):
