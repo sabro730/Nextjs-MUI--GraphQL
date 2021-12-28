@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {styled} from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -13,6 +12,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 import {gql, useQuery} from "@apollo/client";
+import {Box} from "@mui/material";
 
 
 const GET_ALL_TWEETS = gql`
@@ -43,8 +43,6 @@ const TweetCard = () => {
         "July", "August", "September", "October", "November", "December"
     ];
 
-    console.log(data);
-
     const getMonthName = (date) => {
         const TweetDate = new Date(date);
         const month = TweetDate.getMonth();
@@ -55,47 +53,49 @@ const TweetCard = () => {
 
     return (
         <>
-            <Typography align="center" variant="h4" sx={{paddingTop: 5}}>
-                Latest Tweets
-            </Typography>
-            {
-                data?.tweets && data?.tweets?.map((tweet) => (
-                    <Card sx={{maxWidth: 800, marginTop: 2}} key={tweet.id}>
-                        <div>
-                            <CardHeader
-                                avatar={
-                                    <Avatar sx={{backgroundColor: red[500]}} aria-label="recipe">
-                                        {tweet?.user?.firstName?.charAt(0)}
-                                    </Avatar>
-                                }
-                                action={
-                                    <IconButton aria-label="settings">
-                                        <MoreVertIcon/>
+            <Box>
+                <Typography align="center" variant="h4" sx={{paddingTop: 5}}>
+                    Latest Tweets
+                </Typography>
+                {
+                    data?.tweets?.length > 0 ? data?.tweets?.map((tweet) => (
+                        <Card sx={{maxWidth: 700, marginTop: 2, marginLeft: 15}} key={tweet.id}>
+                            <div>
+                                <CardHeader
+                                    avatar={
+                                        <Avatar sx={{backgroundColor: red[500]}} aria-label="recipe">
+                                            {tweet?.user?.firstName?.charAt(0)}
+                                        </Avatar>
+                                    }
+                                    action={
+                                        <IconButton aria-label="settings">
+                                            <MoreVertIcon/>
+                                        </IconButton>
+                                    }
+                                    title={tweet?.user?.firstName + " " + tweet?.user?.lastName}
+                                    subheader={getMonthName(tweet?.createdAt)}
+                                />
+                                <CardContent>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {tweet?.description}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions disableSpacing>
+                                    <IconButton aria-label="add to favorites">
+                                        <FavoriteBorderOutlinedIcon/>
                                     </IconButton>
-                                }
-                                title={tweet?.user?.firstName + " " + tweet?.user?.lastName}
-                                subheader={getMonthName(tweet?.createdAt)}
-                            />
-                            <CardContent>
-                                <Typography variant="body2" color="text.secondary">
-                                    {tweet?.description}
-                                </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                                <IconButton aria-label="add to favorites">
-                                    <FavoriteBorderOutlinedIcon/>
-                                </IconButton>
-                                <IconButton aria-label="share">
-                                    <ChatBubbleOutlineOutlinedIcon/>
-                                </IconButton>
-                                <IconButton aria-label="share">
-                                    <IosShareOutlinedIcon/>
-                                </IconButton>
-                            </CardActions>
-                        </div>
-                    </Card>
-                ))
-            }
+                                    <IconButton aria-label="share">
+                                        <ChatBubbleOutlineOutlinedIcon/>
+                                    </IconButton>
+                                    <IconButton aria-label="share">
+                                        <IosShareOutlinedIcon/>
+                                    </IconButton>
+                                </CardActions>
+                            </div>
+                        </Card>
+                    )) : <div className="text-center">No tweets yet</div>
+                }
+            </Box>
         </>
     );
 }

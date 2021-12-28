@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import PropTypes from 'prop-types';
 import {
     Alert,
@@ -14,13 +14,7 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import HomeIcon from '@mui/icons-material/Home';
-import ExploreIcon from '@mui/icons-material/Explore';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MessageIcon from '@mui/icons-material/Message';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import PersonIcon from '@mui/icons-material/Person';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
 import {gql, useMutation, useQuery} from "@apollo/client";
 import DialogContent from "@mui/material/DialogContent";
@@ -71,44 +65,14 @@ BootstrapDialogTitle.propTypes = {
 
 const items = [
     {
-        href: '/',
+        href: '/home',
         icon: (<HomeIcon fontSize="medium"/>),
         title: 'Home'
     },
     {
-        href: '/',
-        icon: (<ExploreIcon fontSize="medium"/>),
-        title: 'Explore'
-    },
-    {
-        href: '/',
-        icon: (<NotificationsIcon fontSize="medium"/>),
-        title: 'Notifications'
-    },
-    {
-        href: '/',
-        icon: (<MessageIcon fontSize="medium"/>),
-        title: 'Messages'
-    },
-    {
-        href: '/',
-        icon: (<BookmarkBorderIcon fontSize="medium"/>),
-        title: 'Bookmarks'
-    },
-    {
-        href: '/',
-        icon: (<PlaylistAddIcon fontSize="medium"/>),
-        title: 'Lists'
-    },
-    {
-        href: '/',
+        href: '/profiles',
         icon: (<PersonIcon fontSize="medium"/>),
-        title: 'Profile'
-    },
-    {
-        href: '/',
-        icon: (<ExpandMoreIcon fontSize="medium"/>),
-        title: 'More'
+        title: 'People'
     },
 ];
 
@@ -155,6 +119,7 @@ export const MenuSidebar = ({props, children}) => {
 
     const [error, setError] = useState('');
 
+
     const [createTweet] = useMutation(ADD_TWEET, {
         onCompleted(data) {
             setDescription("");
@@ -181,8 +146,6 @@ export const MenuSidebar = ({props, children}) => {
         GET_USER_DATA
     );
 
-    const drawerWidth = 280;
-
 
     const handleOpen = () => {
         setPopupState(true);
@@ -203,13 +166,13 @@ export const MenuSidebar = ({props, children}) => {
             <CssBaseline/>
             <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
                 <Toolbar>
-                    <Typography variant="h5" Wrap sx={{fontWeight: "bold !important"}}>
+                    <Typography variant="h5" sx={{fontWeight: "bold !important"}}>
                         Twitter
                     </Typography>
                     <Grid container justifyContent="center">
                         <Grid item>
                             <Typography align="center" variant="h6">
-                                Hello {userdata?.user?.username}!
+                                Hello, {userdata?.user?.username}!
                             </Typography>
                         </Grid>
                     </Grid>
@@ -223,33 +186,34 @@ export const MenuSidebar = ({props, children}) => {
                     </Grid>
                 </Toolbar>
             </AppBar>
-            <Drawer
-                variant="permanent"
-                sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: {width: drawerWidth, boxSizing: 'border-box'},
-                }}
-            >
-                <Toolbar/>
-                <Box sx={{overflow: 'auto'}}>
-                    <List>
-                        {items.map((item, index) => (
-                            <ListItem button key={index} href={item.href}>
-                                <ListItemIcon>
-                                    {item.icon}
-                                </ListItemIcon>
-                                <ListItemText primary={item.title}/>
-                            </ListItem>
-                        ))}
-                    </List>
-                </Box>
-                <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                    <Button variant="outlined" color="primary" sx={{margin: '20px'}} onClick={handleOpen}>
-                        New Tweet
-                    </Button>
-                </Box>
-            </Drawer>
+            <Box>
+                <Drawer
+                    variant="permanent"
+                >
+                    <Toolbar/>
+                    <Box sx={{overflow: 'auto'}}>
+                        <List>
+                            {items.map((item, index) => (
+                                <a href={item?.href} key={index}>
+                                    <ListItem button>
+                                        <ListItemIcon>
+                                            {item?.icon}
+                                        </ListItemIcon>
+                                        <ListItemText primary={item?.title}/>
+                                    </ListItem>
+                                </a>
+                            ))}
+                        </List>
+                    </Box>
+                    <Box sx={{display: 'flex', justifyContent: 'center'}}>
+                        <Button variant="outlined" color="primary" sx={{margin: '20px'}} onClick={handleOpen}>
+                            New Tweet
+                        </Button>
+                    </Box>
+                </Drawer>
+            </Box>
+
+
             <Box component="main" sx={{flexGrow: 1, p: 3}}>
                 {children}
             </Box>

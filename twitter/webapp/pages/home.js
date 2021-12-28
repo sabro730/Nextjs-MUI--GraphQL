@@ -1,11 +1,9 @@
 import {Container} from "@material-ui/core";
-import React, {useState} from "react";
+import React from "react";
 import Tweet from "../components/Tweet";
-import {MenuSidebar} from "../components/MenuSidabar";
 import Head from "next/head";
 
 const Home = () => {
-    const [isSidebarOpen, setSidebarOpen] = useState(true);
     return (
         <>
             <Head>
@@ -15,12 +13,7 @@ const Home = () => {
                 </title>
             </Head>
             <Container>
-                <MenuSidebar
-                    onClose={() => setSidebarOpen(true)}
-                    open={isSidebarOpen}
-                >
                     <Tweet />
-                </MenuSidebar>
             </Container>
         </>
 

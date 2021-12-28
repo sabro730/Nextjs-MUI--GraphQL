@@ -24,6 +24,7 @@ const LOGIN_MUTATION = gql`
     }
   }
 `;
+
 const REGISTER_NEW_USER = gql`
   mutation RegisterNow($username: String!, $password: String!, $firstName: String!, $lastName: String!) {
     createUser(username: $username, password: $password, firstName: $firstName, lastName: $lastName) {
@@ -50,7 +51,6 @@ const AuthPage = () => {
 
     const [tokenAuth] = useMutation(LOGIN_MUTATION, {
         onCompleted(data) {
-            console.log("Token Data", data);
             if (data?.tokenAuth?.token) {
                 window.localStorage.setItem("token", data?.tokenAuth?.token);
                 window.location.href = "/home";
@@ -153,7 +153,7 @@ const AuthPage = () => {
                                         <TextField
                                             required
                                             fullWidth
-                                            id="email"
+                                            id="username"
                                             label="Username"
                                             name="username"
                                             autoComplete="username"

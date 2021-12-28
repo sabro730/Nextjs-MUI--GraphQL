@@ -4,6 +4,7 @@ import 'tailwindcss/tailwind.css'
 import AuthPage from "../components/AuthPage";
 import {useEffect, useState} from "react";
 import {StyledEngineProvider} from '@mui/material/styles';
+import {MenuSidebar} from "../components/MenuSidabar";
 
 
 function MyApp({Component, pageProps}) {
@@ -18,7 +19,10 @@ function MyApp({Component, pageProps}) {
         <ApolloProvider client={apolloClient}>
             <StyledEngineProvider injectFirst>
                 <div style={{margin: "20px"}}>
-                    {!localStorage ? <AuthPage/> : <Component {...pageProps} />}
+                    {!localStorage ? <AuthPage/> :
+                    <MenuSidebar>
+                        <Component {...pageProps}/>
+                    </MenuSidebar>}
                 </div>
             </StyledEngineProvider>
         </ApolloProvider>
