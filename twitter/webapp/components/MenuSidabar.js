@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {
+    Alert,
     AppBar,
     Box,
     Button, CssBaseline,
-    Divider,
     Drawer,
     List,
     ListItem,
     ListItemIcon,
-    ListItemText, Paper, TextareaAutosize, Toolbar, Tooltip,
+    ListItemText, TextareaAutosize, Toolbar, Tooltip,
     Typography,
-    useMediaQuery
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import HomeIcon from '@mui/icons-material/Home';
@@ -128,7 +127,7 @@ const ADD_TWEET = gql`
       tweet {
         id
         description
-        date
+        createdAt
       }
     }
   }
@@ -139,7 +138,7 @@ const GET_ALL_TWEETS = gql`
   tweets{
     id
     description
-    date
+    createdAt
     user{
       username
       firstName
@@ -154,6 +153,8 @@ export const MenuSidebar = ({props, children}) => {
     const [PopupState, setPopupState] = useState(false);
     const [description, setDescription] = useState("");
 
+    const [error, setError] = useState('');
+
     const [createTweet] = useMutation(ADD_TWEET, {
         onCompleted(data) {
             setDescription("");
@@ -166,9 +167,15 @@ export const MenuSidebar = ({props, children}) => {
     });
 
     const addNewTweet = () => {
-        createTweet({variables: {description: description}});
-        setPopupState(false);
+        createTweet({variables: {description: description}}).catch(() => {
+            setError("Tweet is too long");
+            setPopupState(true);
+        });
+        if (error === '') {
+            setPopupState(false);
+        }
     };
+
 
     const {loading: userloding, error: usererror, data: userdata} = useQuery(
         GET_USER_DATA
@@ -176,17 +183,9 @@ export const MenuSidebar = ({props, children}) => {
 
     const drawerWidth = 280;
 
-    const isMobile = useMediaQuery('(max-width:600px)');
-
-    useEffect(() => {
-        if (isMobile) {
-            setOpen(false);
-        }
-    }, [isMobile]);
 
     const handleOpen = () => {
         setPopupState(true);
-        console.log("Cuhaa")
     };
 
     const logoutNow = () => {
@@ -196,7 +195,7 @@ export const MenuSidebar = ({props, children}) => {
 
     const handleClose = () => {
         setPopupState(false);
-        console.log("Cuhaa")
+        setError('');
     };
 
     return (
@@ -264,6 +263,10 @@ export const MenuSidebar = ({props, children}) => {
                     {/* eslint-disable-next-line react/no-unescaped-entities */}
                     What's up?
                 </BootstrapDialogTitle>
+                {
+                    error &&
+                    <Alert severity="error">{error}</Alert>
+                }
                 <DialogContent dividers>
                     <Typography gutterBottom>
                         <TextareaAutosize

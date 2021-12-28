@@ -14,23 +14,13 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 import {gql, useQuery} from "@apollo/client";
 
-const ExpandMore = styled((props) => {
-    const {expand, ...other} = props;
-    return <IconButton {...other} />;
-})(({theme, expand}) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-    }),
-}));
 
 const GET_ALL_TWEETS = gql`
   {
   tweets{
     id
     description
-    date
+    createdAt
     user{
       username
       firstName
@@ -52,6 +42,8 @@ const TweetCard = () => {
     const monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ];
+
+    console.log(data);
 
     const getMonthName = (date) => {
         const TweetDate = new Date(date);
@@ -78,11 +70,11 @@ const TweetCard = () => {
                                 }
                                 action={
                                     <IconButton aria-label="settings">
-                                        <MoreVertIcon />
+                                        <MoreVertIcon/>
                                     </IconButton>
                                 }
                                 title={tweet?.user?.firstName + " " + tweet?.user?.lastName}
-                                subheader={getMonthName(tweet?.date)}
+                                subheader={getMonthName(tweet?.createdAt)}
                             />
                             <CardContent>
                                 <Typography variant="body2" color="text.secondary">
