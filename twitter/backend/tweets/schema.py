@@ -25,7 +25,7 @@ class Query(graphene.ObjectType):
         user = info.context.user
         if id:
             return Tweet.objects.filter(id=id)
-        return Tweet.objects.all().order_by("-date")
+        return Tweet.objects.all().order_by("-created_at")
 
     @login_required
     def resolve_user(self, info):
@@ -45,7 +45,7 @@ class CreateTweet(graphene.Mutation):
     def mutate(self, info, description):
         user = info.context.user
         if user.is_anonymous:
-            raise Exception("Not Loged in ! Login Now")
+            raise Exception("Not Logged in ! Login Now")
         tweet = Tweet(user=user, description=description)
         tweet.save()
         return CreateTweet(tweet=tweet)
@@ -63,7 +63,7 @@ class UpdateTweet(graphene.Mutation):
         user = info.context.user
         tweet = Tweet.objects.get(id=id)
         if user != tweet.user:
-            raise Exception("It's Not Your Todo Data!!")
+            raise Exception("It's Not Your Tweet Data!!")
         tweet.description = description
         tweet.save()
         return UpdateTweet(tweet=tweet)
@@ -80,7 +80,7 @@ class DeleteTweet(graphene.Mutation):
         user = info.context.user
         tweet = Tweet.objects.get(id=id)
         if user != tweet.user:
-            raise Exception("It's Not Your Todo !!")
+            raise Exception("It's Not Your Tweet !!")
         tweet.delete()
         return DeleteTweet(message=f"ID {id} id Deleted")
 

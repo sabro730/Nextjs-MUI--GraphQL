@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'tweets',
+    'profiles',
     'graphene_django',
 ]
 
