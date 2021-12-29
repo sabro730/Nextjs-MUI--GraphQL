@@ -3,7 +3,6 @@
 ![GraphQL](https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white)
 ![NextJS](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
 
 Twitter is a microblogging platform where users post “tweets” which are restricted to 140 characters. The tweets are stored in a database and can be retrieved by any user.
 
@@ -22,6 +21,7 @@ Check the [Project Setup](./SETUP.md) for running the code locally.
 ## Todo
 
 - [ ] Improve the design
+- [ ] Make design responsive
 
 ## Navigations
 
@@ -35,7 +35,7 @@ Check the [Project Setup](./SETUP.md) for running the code locally.
   - **Feeds** - shows the tweets of following users
   - **People** - people button in the sidebar, shows the people that user can follow
   - **Home** - home button in the sidebar, shows the tweets of the user
-  - **New Tweet** - new tweet button in the sidebar, shows the form to tweet
+  - **New Tweet** - new tweet button in the sidebar, shows the text input to tweet
   - **Logout** - logout button in the sidebar, logs out the user
 
 ## Misc
