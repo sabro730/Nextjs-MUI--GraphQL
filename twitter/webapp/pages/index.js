@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Auth from "../components/AuthPage";
+import Auth from "../src/components/AuthPage";
 
 
 export default function Index() {

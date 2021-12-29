@@ -1,6 +1,6 @@
 import {Container} from "@material-ui/core";
 import React from "react";
-import Tweet from "../components/Tweet";
+import Tweet from "../src/components/Tweet";
 import Head from "next/head";
 
 const Home = () => {

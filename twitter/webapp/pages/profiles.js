@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Head from "next/head";
-import ProfileList from "../components/ProfileList";
+import ProfileList from "../src/components/ProfileList";
 
 const Profiles = () => {
     return (

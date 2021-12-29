@@ -1,10 +1,10 @@
 import {ApolloProvider} from "@apollo/client";
 import {useApollo} from "../lib/apolloClient";
 import 'tailwindcss/tailwind.css'
-import AuthPage from "../components/AuthPage";
+import AuthPage from "../src/components/AuthPage";
 import {useEffect, useState} from "react";
 import {StyledEngineProvider} from '@mui/material/styles';
-import {MenuSidebar} from "../components/MenuSidabar";
+import {MenuSidebar} from "../src/components/MenuSidabar";
 
 
 function MyApp({Component, pageProps}) {
