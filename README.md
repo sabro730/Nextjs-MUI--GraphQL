@@ -5,7 +5,7 @@ This is Yeganathan, sophomore at Amrita School of Engineering (CSE 2020).
 
 ## About the Tasks
 
-I tried completing the whole tasks in 2-3days of time and since the time limit is short, focused on the functionalities > design/performance. I was able to identify myself some parts which can be implemented efficiently and will work on those in coming days. Overall the tasks were pretty good.
+I tried completing the whole task in a span of 2-3 days and since the time limit was short, focus on the functionalities > design/performance. I have identified some parts of the task which could've been implemented more efficiently, and will be working on those in the coming days. Overall the tasks were pretty good.
 
 Check the [autoFill](./autoFill) and [twitter](./twitter) directories for more details.
 
