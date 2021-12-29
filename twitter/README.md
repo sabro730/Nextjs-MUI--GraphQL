@@ -90,7 +90,9 @@ django.contrib.auth.models
 
 #### How it works?
 
-Authentication is done via django's built-in authentication system. When every user signs up, a profile instance is also created for the same user in the backend.
+Authentication is done via django's built-in authentication system. When every user signs up, a profile instance is also created for the same user in the backend by django signals. Profile is used to store the following user list. The user can follow other users and the tweets of the users they follow are shown in the feed. The Tweet model is used to store the tweets of the user.
+
+
 
 **3. What function/API that will return all the tweets**
 
