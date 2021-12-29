@@ -1,10 +1,10 @@
-## Twitter platform
+# Twitter platform
 
 Twitter is a microblogging platform where users post “tweets” which are restricted to 140 characters. The tweets are stored in a database and can be retrieved by any user.
 
 Check the [Project Setup](./SETUP.md) for running the code locally.
 
-#### Implemented functionalities of Twitter:
+## Implemented functionalities of Twitter:
 
 - [x] A user should be able to sign up / log in
 - [x] Users can tweet about anything they like with restrictions of 140 chars
@@ -14,11 +14,11 @@ Check the [Project Setup](./SETUP.md) for running the code locally.
 - [x] Users can follow each other
 - [x] Show tweets based on the users following
 
-#### Todo
+## Todo
 
 - [ ] Improve the design
 
-### Navigations
+## Navigations
 
 - Before you start make sure that django table is migrated and the superuser is created.
 - The user is created, logged in via the built-in authentication system and then the user is redirected to the home page. 
@@ -33,13 +33,13 @@ Check the [Project Setup](./SETUP.md) for running the code locally.
   - **New Tweet** - new tweet button in the sidebar, shows the form to tweet
   - **Logout** - logout button in the sidebar, logs out the user
 
-### Misc
+## Misc
 
 **1. What technologies are used to build out the platform?**
 
 I have a pretty good experience with the tech stack mentioned below and already had a [starter kit](https://github.com/yeganathan18/django-nextjs-starter-kit) for the same so cloned and started building out the platform. The whole platform has been dockerized which makes the both deployment and development process easy.
 
-##### The tech stack used:
+### The tech stack used:
 
 - ReactJS/NextJS
 - Tailwind CSS
@@ -135,3 +135,7 @@ factors of the system and when will it start failing?**
 I'm not sure about the scale up/failing cases and the system is not designed to scale up to a large number of users. The system is designed to scale up to a small number of users.
 
 As I mentioned above, the whole system is dockerized and the deployment process is easy.
+
+**5. BONUS**
+
+As i mentioned already, the frontend uses materail ui and has been customised to make it look better. Implementation of tweet textbox and feed has been done. We can type our tweet and press the submit button that will send the request to publish this Tweet and update the feed.
