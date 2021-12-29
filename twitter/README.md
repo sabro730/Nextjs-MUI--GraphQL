@@ -1,77 +1,135 @@
-# Twitter
+## Twitter platform
 
-## Things needed
-Docker must have been installed, in order to use this boiler-plate code. For downloading the docker check this out - [docker download](https://docs.docker.com/get-docker/)
+Twitter is a microblogging platform where users post “tweets” which are restricted to 140 characters. The tweets are stored in a database and can be retrieved by any user.
 
-## Setting up the project
-1. Clone this repository
+Check the [Project Setup](./SETUP.md) for running the code locally.
 
-2. Start the Docker desktop app (mac & windows) and make sure that the docker-engine is started
+#### Implemented functionalities of Twitter:
 
-```bash
-$ docker info
+- [x] A user should be able to sign up / log in
+- [x] Users can tweet about anything they like with restrictions of 140 chars
+- [x] Show all the tweets of people sorted by the latest tweet on top
+- [x] Support for TweetDelete, TweetUpdate APIs in the backend
+- [x] Custom 404 Error page
+- [x] Users can follow each other
+- [x] Show tweets based on the users following
+
+#### Todo
+
+- [ ] Improve the design
+
+### Navigations
+
+- Before you start make sure that django table is migrated and the superuser is created.
+- The user is created, logged in via the built-in authentication system and then the user is redirected to the home page. 
+- Go to the [http://localhost/](http://localhost/) to see the Signin/Signup.
+- Signup and signin to see the tweets.
+- Go to the [http://localhost/api/admin](http://localhost/api/admin) to see the Django Admin panel.
+- Go to the [http://localhost/api/graphql/](http://localhost/api/graphql/) to access GraphiQL playground.
+- After signing in, you can see the following:
+  - **Feeds** - shows the tweets of following users
+  - **People** - people button in the sidebar, shows the people that user can follow
+  - **Home** - home button in the sidebar, shows the tweets of the user
+  - **New Tweet** - new tweet button in the sidebar, shows the form to tweet
+  - **Logout** - logout button in the sidebar, logs out the user
+
+### Misc
+
+**1. What technologies are used to build out the platform?**
+
+I have a pretty good experience with the tech stack mentioned below and already had a [starter kit](https://github.com/yeganathan18/django-nextjs-starter-kit) for the same so cloned and started building out the platform. The whole platform has been dockerized which makes the both deployment and development process easy.
+
+##### The tech stack used:
+
+- ReactJS/NextJS
+- Tailwind CSS
+- GraphQL
+- Python/Django
+- PostgreSQL
+- Docker (served in Nginx using gunicorn)
+
+Frontend - Used Material UI components in the ReactJS for faster UI development.
+
+**2. Schema of the database?**
+
+django.contrib.auth.models
+
+**User model**
+| Field        | Type          |
+| :--------    | :----         |
+| id           | AutoField     |
+| date_joined  | DateTimeField |
+| email        | EmailField    |
+| first_name   | CharField     |
+| is_active    | BooleanField  |
+| is_staff     | BooleanField  |
+| is_superuser | BooleanField  |
+| last_login   | DateTimeField |
+| last_name    | CharField     |
+| password     | CharField     |
+| username     | CharField     |
+
+
+**Tweet model**
+
+| Field        | Type          |
+| :--------    | :----         |
+| id           | AutoField     |
+| user         | ForeignKey    |
+| description  | CharField     |
+| created_at   | DateTimeField |
+
+
+**Profiles model**
+
+| Field        | Type            |
+| :--------    | :----           |
+| id           | AutoField       |
+| user         | ForeignKey      |
+| following    | ManyToManyField |
+
+#### How it works?
+
+Authentication is done via django's built-in authentication system. When every user signs up, a profile instance is also created for the same user in the backend.
+
+**3. What function/API that will return all the tweets**
+
+API resolver function
+
+```python
+class Query(graphene.ObjectType):
+    tweets = graphene.List(TweetType)
+
+    @login_required
+    def resolve_tweets(self, info):
+        profiles = Profile.objects.filter(id__in=info.context.user.profile.following.all())
+        followingUsers = User.objects.filter(profile__in=profiles)
+        return Tweet.objects.filter(Q(user_id__in=followingUsers) | Q(user=info.context.user)).order_by("-created_at")
 ```
 
-> Using this command check whether the docker engine is running!
+> **Note:** `login_required` decorator is used to restrict the API to only logged in users.
 
+GraphQL API
 
-3. Shot up the terminal and 
-
-```bash
-$ cd <project_directory>
+```graphql
+{
+  tweets {
+    id
+    description
+    createdAt
+    user {
+      id
+      username
+    }
+  }
+}
 ```
 
-Make sure the directory is proper before moving further, it should be `<project_directory>/` 
+> Tweets query returns data in json based on the users that the user is following and the user itself.
 
-4. Build the Docker images
+**4. How much can the system built scale up to? What is the limiting
+factors of the system and when will it start failing?**
 
-```bash
-$ docker-compose build
-```
+I'm not sure about the scale up/failing cases and the system is not designed to scale up to a large number of users. The system is designed to scale up to a small number of users.
 
-> This may take some time to complete
-
-5. Once the docker container is built,
-
-```bash
-$ docker-compose up
-```
-
-You may see the logs that are running up in the terminal, now the container has been started.
-
-6. There may be some default migrations that has to be done for the django, so open-up another terminal in the same directory and run the following command.
-
-```bash
-docker compose exec backend python manage.py migrate
-```
-
-7. Create a superuser before signin/signup,
-
-```bash
-$ docker compose exec backend python manage.py createsuperuser
-```
-
-**Ran into any issues? Check the [Docker Compose documentation](https://docs.docker.com/compose/start/) and try restarting the container.**
-
-## Navigation
-
-Webapp - [http://localhost/](http://localhost/)
-
-Django Admin panel - [http://localhost/api/admin](http://localhost/api/admin)
-
-GraphiQL Playground - [http://localhost/api/graphql](http://localhost/api/graphql)
-
-## Note ❗️
-
-This is been dockerized only for the local development and not for the production-ready web app.
-
-## Misc
-
-Whether to install a package or use a command in particular container run the following code.
-
-```bash
-docker compose exec <container-name> <command that need to be executed>
-```
-
-check the directory's readme, inorder to execute basic necessary commands for both [django](./backend) and [nextjs](./webapp).
-
+As I mentioned above, the whole system is dockerized and the deployment process is easy.
