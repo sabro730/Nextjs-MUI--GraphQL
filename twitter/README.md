@@ -1,4 +1,9 @@
 # Twitter platform
+![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
+![GraphQL](https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white)
+![NextJS](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
 
 Twitter is a microblogging platform where users post “tweets” which are restricted to 140 characters. The tweets are stored in a database and can be retrieved by any user.
 
@@ -39,7 +44,7 @@ Check the [Project Setup](./SETUP.md) for running the code locally.
 
 I have a pretty good experience with the tech stack mentioned below and already had a [starter kit](https://github.com/yeganathan18/django-nextjs-starter-kit) for the same so cloned and started building out the platform. The whole platform has been dockerized which makes the both deployment and development process easy.
 
-### The tech stack used:
+#### The tech stack used:
 
 - ReactJS/NextJS
 - Tailwind CSS
@@ -80,7 +85,7 @@ django.contrib.auth.models
 | created_at   | DateTimeField |
 
 
-**Profiles model**
+**Profile model**
 
 | Field        | Type            |
 | :--------    | :----           |
