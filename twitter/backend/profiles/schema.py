@@ -16,7 +16,7 @@ class Query(graphene.ObjectType):
     @staticmethod
     def resolve_profiles(self, info):
         user = User.objects.get(id=info.context.user.id)
-        profiles = Profile.objects.exclude(id=user.id).exclude(id__in=user.profile.following.all())
+        profiles = Profile.objects.exclude(id=user.profile.id).exclude(id__in=user.profile.following.all())
         return profiles
 
     # TODO
