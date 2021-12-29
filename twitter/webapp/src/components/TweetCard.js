@@ -11,24 +11,9 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
-import {gql, useQuery} from "@apollo/client";
+import {useQuery} from "@apollo/client";
 import {Box} from "@mui/material";
-
-
-const GET_ALL_TWEETS = gql`
-  {
-  tweets{
-    id
-    description
-    createdAt
-    user{
-      username
-      firstName
-      lastName
-    }
-  }
-}
-`;
+import {GET_ALL_TWEETS} from "../graphql/queries/tweet";
 
 const TweetCard = () => {
 

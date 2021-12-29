@@ -1,5 +1,4 @@
 import {useMutation} from "@apollo/client";
-import gql from "graphql-tag";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,7 +11,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {Alert} from "@mui/material";
 import {LOGIN_MUTATION, REGISTER_NEW_USER} from "../graphql/mutations/auth";
