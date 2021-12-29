@@ -23,6 +23,9 @@ import {styled} from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
+import {ADD_TWEET} from "../graphql/mutations/tweet";
+import {GET_ALL_TWEETS} from "../graphql/queries/tweet";
+import {GET_USER_DATA} from "../graphql/queries/user";
 
 const BootstrapDialog = styled(Dialog)(({theme}) => ({
     '& .MuiDialogContent-root': {
@@ -75,42 +78,6 @@ const items = [
         title: 'People'
     },
 ];
-
-const GET_USER_DATA = gql`
-  {
-    user {
-      id
-      username
-    }
-  }
-`;
-
-const ADD_TWEET = gql`
-  mutation CreateTweet($description: String!) {
-    createTweet(description: $description) {
-      tweet {
-        id
-        description
-        createdAt
-      }
-    }
-  }
-`;
-
-const GET_ALL_TWEETS = gql`
-    {
-  tweets{
-    id
-    description
-    createdAt
-    user{
-      username
-      firstName
-      lastName
-    }
-  }
-}
-`;
 
 export const MenuSidebar = ({props, children}) => {
 

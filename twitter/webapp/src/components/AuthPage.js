@@ -12,29 +12,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {Alert} from "@mui/material";
-
-
-const LOGIN_MUTATION = gql`
-  mutation LoginNow($username: String!, $password: String!) {
-    tokenAuth(username: $username, password: $password) {
-      token
-    }
-  }
-`;
-
-const REGISTER_NEW_USER = gql`
-  mutation RegisterNow($username: String!, $password: String!, $firstName: String!, $lastName: String!) {
-    createUser(username: $username, password: $password, firstName: $firstName, lastName: $lastName) {
-      user {
-        id
-        username
-      }
-    }
-  }
-`;
+import {LOGIN_MUTATION, REGISTER_NEW_USER} from "../graphql/mutations/auth";
 
 const theme = createTheme();
 

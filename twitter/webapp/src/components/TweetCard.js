@@ -63,7 +63,7 @@ const TweetCard = () => {
                             <div>
                                 <CardHeader
                                     avatar={
-                                        <Avatar sx={{backgroundColor: red[500]}} aria-label="recipe">
+                                        <Avatar sx={{backgroundColor: red[500]}} aria-label="tweet">
                                             {tweet?.user?.firstName?.charAt(0)}
                                         </Avatar>
                                     }

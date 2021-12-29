@@ -5,37 +5,13 @@ import Avatar from "@mui/material/Avatar";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import {Container} from "@mui/material";
+import { Container } from "@mui/material";
 import * as React from "react";
-import {gql, useMutation, useQuery} from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_USER_PROFILES } from "../graphql/queries/profile";
+import { FOLLOW_PROFILE_MUTATION } from "../graphql/mutations/profile";
+import { blue } from "@mui/material/colors";
 
-
-const GET_USER_PROFILES = gql`
-  {
-  profiles{
-    id
-    user{
-      id
-      username
-      firstName
-      lastName
-    }
-  }
-}
-`;
-
-
-const FOLLOW_PROFILE_MUTATION = gql`
-  mutation FollowProfile($userId: Int!) {
-    followProfile(userId: $userId){
-    profile{
-      user{
-        id
-      }
-    }
-  }
-  }
-`;
 
 
 const ProfileList = () => {
@@ -77,7 +53,7 @@ const ProfileList = () => {
                             <List>
                                 <ListItem sx={{maxWidth: 'inherit'}}>
                                     <ListItemAvatar>
-                                        <Avatar>
+                                        <Avatar sx={{backgroundColor: blue[500]}}>
                                             {profile?.user?.firstName[0]}
                                         </Avatar>
                                     </ListItemAvatar>
